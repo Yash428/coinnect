@@ -7,47 +7,37 @@ import { Link, useNavigate } from "react-router-dom";
 import { GoogleLogin } from '@react-oauth/google';
 import axios from "axios";
 import { toast } from 'react-toastify';
-
+import {login as authLogin} from "../store/authSlice"
+import {useDispatch} from "react-redux"
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-      axios.post('http://localhost:8002/api/v1/login',{
-        email: email,
-        password: password
-      })
-      .then(res=>res.data)
-      .then(result =>{
-        console.log(result);
-        // console.log(roles);
-        localStorage.setItem('accessToken',result.data.accessToken)
-        toast.success("Logged in successfully!", {
-          position: "top-right",
-          autoClose: 3000,
-        });
-        navigate("/dashboard")
-        // withReactContent(Swal).fire({
-        //   title: "Success",
-        //   text: "Logged In successfully",
-        //   icon: "success",
-        // })
-        // dispatch(authLogin(result.data))
-        // console.log(result.data.user.isCompleted);
-      })
-      .catch(err=>{
-        console.log(err);
-        toast.warn("Error");
-        // withReactContent(Swal).fire({
-        //   title: "Error",
-        //   text: "Invalid email or password",
-        //   icon: "error",
-        // })
-      })
+    axios.post('http://localhost:8002/api/v1/login',{
+      email: email,
+      password: password
+    })
+    .then(res=>res.data)
+    .then(result =>{
+      
+      localStorage.setItem('accessToken',result.data.accessToken)
+      toast.success("Logged in successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      dispatch(authLogin(result.data.user))
+      navigate("/welcome");
+    })
+    .catch(err=>{
+      console.log(err);
+      toast.warn("Incorrect Email or Password");
+    })
   };
 
   const Google = (e) =>{
@@ -78,7 +68,7 @@ const Login = () => {
             <p className="text-xl text-green-600 mt-2">Please enter your details</p>
           </div>
           <form onSubmit={handleLoginSubmit} className="flex flex-col mt-6">
-            <input type="text" placeholder="User Name" value={email} onChange={(e)=>setEmail(e.target.value)} name="username" required className="w-full p-4 mb-4 border-b-2 border-gray-600 outline-none bg-gray-100" />
+            <input type="text" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)} name="email" required className="w-full p-4 mb-4 border-b-2 border-gray-600 outline-none bg-gray-100" />
             <div className="relative">
               <input type={showPassword ? "text" : "password"} placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} name="password" required className="w-full p-4 border-b-2 border-gray-600 outline-none bg-gray-100" />
               {showPassword ? (

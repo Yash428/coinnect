@@ -11,7 +11,7 @@ const Landing = () => {
           <ul className="flex list-none gap-8 text-2xl font-bold text-green-600">
             <li><Link to="/about" className="hover:text-green-700">ABOUT US</Link></li>
             <li><Link to="/contact" className="hover:text-green-700">CONTACT US</Link></li>
-            <li><Link to="/get-in-touch" className="hover:text-green-700">GET IN TOUCH</Link></li>
+            <li><Link to="/get" className="hover:text-green-700">GET IN TOUCH</Link></li>
           </ul>
         </div>
       </nav>
