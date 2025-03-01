@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="34c0d35e-b52d-44a8-98fb-139e73ebec63" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/backend/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/controllers/commonPost.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/controllers/commonPost.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/controllers/like.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/controllers/like.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/controllers/user.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/controllers/user.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/db/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/db/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/models/comment.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/models/comment.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/models/like.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/models/like.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/models/post.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/models/post.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/models/user.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/models/user.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Coiny.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Coiny.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Dashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Doubt.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Doubt.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Get.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Get.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/HomeLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/HomeLayout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Landing.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Landing.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Logout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Logout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Register.jsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2thPl9reKwXVXDlToAuG7Ob2kEp" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-ce3d9afa04ac-ba05f1cad1b1-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.20224.347" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="34c0d35e-b52d-44a8-98fb-139e73ebec63" name="Changes" comment="" />
+      <created>1740801483910</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1740801483910</updated>
+    </task>
+    <servers />
+  </component>
+</project>

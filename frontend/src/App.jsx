@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
+
 const LoadingPopup = () => (
   <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
     <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
@@ -24,6 +25,8 @@ const Login = lazy(() => import("./pages/Login"));
 const Logout = lazy(() => import("./pages/Logout"));
 const Register = lazy(() => import("./pages/Register"));
 const Welcome = lazy(() => import("./pages/Welcome"));
+const FAQ = lazy(() => import("./pages/Faq"));
+const Pricing = lazy(() => import("./pages/Price"));
 
 const router = createBrowserRouter([
   {
@@ -42,7 +45,9 @@ const router = createBrowserRouter([
           { path: "get", element: <Suspense fallback={<LoadingPopup />}><Get /></Suspense> },
           { path: "doubt", element: <Suspense fallback={<LoadingPopup />}><Doubt /></Suspense> },
           { path: "coiny", element: <Suspense fallback={<LoadingPopup />}><Coiny /></Suspense> },
-          { path: "coinguru", element: <Suspense fallback={<LoadingPopup />}><Coinguru /></Suspense> }
+          { path: "coinguru", element: <Suspense fallback={<LoadingPopup />}><Coinguru /></Suspense> },
+          {path: "faq", element: <Suspense fallback={<LoadingPopup />}><FAQ /></Suspense> },
+          {path: "pricing", element: <Suspense fallback={<LoadingPopup />}><Pricing /></Suspense> },
         ]
       }
     ]

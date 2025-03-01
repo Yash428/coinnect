@@ -2,34 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import {useSelector} from 'react-redux'
 
 const Dashboard = () => {
   const [token, setToken] = useState(localStorage.getItem("accessToken") || "");
   const [data, setData] = useState({});
   const navigate = useNavigate();
-
-  // const fetchLuckyNumber = async () => {
-  //   let axiosConfig = {
-  //     headers: {
-  //       'Authorization': `Bearer ${token}`
-  //     }
-  //   };
-
-  //   // try {
-  //   //   const response = await axios.get("http://localhost:3000/api/v1/dashboard", axiosConfig);
-  //   //   setData({ msg: response.data.msg, luckyNumber: response.data.secret });
-  //   // } catch (error) {
-  //   //   toast.error(error.message);
-  //   // }
-  // };
-
-  // useEffect(() => {
-  //   //fetchLuckyNumber();
-  //   if (token === "") {
-  //     navigate("/login");
-  //     toast.warn("Please login first to access dashboard");
-  //   }
-  // }, [token]);
+  const user = useSelector(state=>state.auth.data)
+  console.log(user);
+  
 
   return (
     <div className="flex flex-col items-center justify-center h-screen w-full text-center p-4">

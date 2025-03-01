@@ -34,19 +34,18 @@ const SignUp = () => {
     })
     .then(res=>res.data)
     .then(result =>{
-      console.log(result);
-      localStorage.setItem('accessToken',result.data.accessToken)
       toast.success("Registered successfully!", {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 2000,
       });
-      console.log(result.data.user);
-      dispatch(authLogin(result.data.user))
-      navigate("/welcome")
+      navigate("/login")
     })
     .catch(err=>{
       console.log(err);
-      toast.warn("Error");
+      toast.warn("Error", {
+        position: "top-right",
+        autoClose: 2000,
+      });
     })
   };
 

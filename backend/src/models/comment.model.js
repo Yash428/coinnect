@@ -30,9 +30,12 @@ const Comment = sequelize.define("Comment", {
             key: "id"
         },
         onDelete: "CASCADE"
+    },
+    created_at: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
     }
 }, {
-    timestamps: true,
     tableName: 'comments'
 });
 

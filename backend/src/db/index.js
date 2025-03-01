@@ -8,7 +8,7 @@ const connectDb = async ()=>{
             logging: false,
         })
         await sequelize.authenticate()
-        return sequelize
+        return sequelize;
     } catch (error) {
         console.log(error);
     }
@@ -16,5 +16,5 @@ const connectDb = async ()=>{
 }
 
 export {
-    connectDb
+    connectDb,
 }

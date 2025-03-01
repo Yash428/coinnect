@@ -105,7 +105,7 @@ const loginUser = asyncHandler(async (req, res) => {
     const accessToken = jwt.sign(
         { userId: user.id, email: user.email },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "15m" }
+        { expiresIn: "30m" }
     );
 
     // Generate Session Token (Refresh Token)

@@ -1,22 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import { useState } from "react";
+import Image from "../assets/image.png";
+import { Sun, Moon } from "lucide-react";
 function Get() {
+  const [darkMode, setDarkMode] = useState(false)
   return (
     <>
-      <nav className="flex justify-center items-center w-full py-4 bg-white fixed top-0 left-0 z-50">
-        <div className="flex items-center justify-center px-6 py-3 border-2 border-yellow-500 rounded-2xl w-3/5 bg-white">
-          <ul className="flex list-none gap-8 m-0 p-0 text-2xl font-bold text-green-600">
-            <li>
-              <Link to="/about" className="hover:text-green-700">ABOUT US</Link>
-            </li>
-            <li>
-              <Link to="/contact" className="hover:text-green-700">CONTACT US</Link>
-            </li>
-            <li>
-              <Link to="/" className="hover:text-green-700">HOME</Link>
-            </li>
-          </ul>
+      <nav className="flex justify-between items-center p-4 max-w-7xl mx-auto">
+        <h1 className="text-3xl font-bold text-primary">Coinnect</h1>
+        <div className="flex items-center space-x-4">
+            <Link to={'/'} variant="ghost">Home</Link>
+            {/* <Link to={'about'} variant="ghost">About</Link> */}
+            <Link to={'/pricing'} variant="ghost">Pricing</Link>
+            <Link to={'/faq'} variant="ghost">FAQs</Link>
+            <Link to={'/get'} variant="ghost">Get In Touch</Link>
+            <button
+                className="rounded-full p-2"
+                onClick={() => setDarkMode(!darkMode)}
+            >
+            {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
         </div>
       </nav>
 

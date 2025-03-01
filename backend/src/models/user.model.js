@@ -1,5 +1,6 @@
 import {DataTypes} from "sequelize"
 import { connectDb } from "../db/index.js"
+import { Post } from "./post.model.js"
 
 const sequelize = await connectDb()
 
@@ -33,11 +34,12 @@ const User = sequelize.define('Users',{
     },
     profile_picture: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        defaultValue: "https://res.cloudinary.com/dywlcf7kr/image/upload/v1740761627/default-avatar-icon-of-social-media-user-vector_v4f6r6.jpg"
     },
     coins:{
         type: DataTypes.INTEGER,
-        defaultValue: 0
+        defaultValue: 100
     },
     dob: {
         type: DataTypes.DATEONLY,
@@ -52,6 +54,7 @@ const User = sequelize.define('Users',{
     tableName:'users'
     }
 )
+User.hasMany(Post, { foreignKey: "user_id" });
 
 export
 { 

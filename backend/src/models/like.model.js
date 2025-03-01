@@ -24,10 +24,14 @@ const Like = sequelize.define("Like", {
             key: "id"
         },
         onDelete: "CASCADE"
+    },
+    created_at: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
     }
 }, {
-    timestamps: true,
-    tableName: 'likes'
+    tableName: 'likes',
+    timestamps: false,
 });
 
 export {

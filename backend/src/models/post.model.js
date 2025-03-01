@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize"
-import { connectDb } from "../db/index.js"
+import { connectDb } from "../db/index.js";
 
 const sequelize = await connectDb()
 
@@ -37,10 +37,21 @@ const Post = sequelize.define("Post", {
     likes_count: {
         type: DataTypes.INTEGER,
         defaultValue: 0
+    },
+    created_at: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
+    },
+    updated_at: {
+        type: DataTypes.DATE
     }
 }, {
-    timestamps: true,
+    timestamps: false,
     tableName: 'posts'
 });
+
+
+
+
 
 export { Post }
