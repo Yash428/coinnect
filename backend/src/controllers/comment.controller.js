@@ -32,11 +32,11 @@ const addComment = asyncHandler(async (req, res) => {
             `
             SELECT 
                 comments.id AS comment_id,
-                comments.content AS comment_content,
+                comments.content AS content,
                 comments.created_at AS comment_created_at,
                 users.id AS user_id,
                 users.full_name AS user_name,
-                users.profile_picture AS user_avatar
+                users.profile_picture
             FROM comments
             LEFT JOIN users ON comments.user_id = users.id
             WHERE comments.post_id = :postId
@@ -62,16 +62,37 @@ const addComment = asyncHandler(async (req, res) => {
 
 const getCommentsForPost = asyncHandler(async (req, res) => {
     try {
-        const { postId } = req.params;
-        const comments = await Comment.findAll({
-            where: { post_id: postId },
-            include: [{ model: User, attributes: ["id", "email"] }] // Include user details
+        const { postId } = req.body;
+        const sequelize = await connectDb();
+    
+        const query = `
+            SELECT 
+                comments.id AS comment_id,
+                comments.content AS comment_content,
+                comments.created_at AS comment_created_at,
+    
+                users.id AS user_id,
+                users.full_name AS user_name,
+                users.email AS user_email,
+                users.profile_picture AS user_avatar
+    
+            FROM comments
+            LEFT JOIN users ON comments.user_id = users.id
+            WHERE comments.post_id = :postId
+            ORDER BY comments.created_at ASC;
+        `;
+    
+        const comments = await sequelize.query(query, {
+            type: sequelize.QueryTypes.SELECT,
+            replacements: { postId }
         });
-
-        return res.status(200).json(new ApiResponse(200, comments, "Comments fetched"));
+    
+        return res.status(200).json(new ApiResponse(200, comments, "Comments fetched successfully"));
+    
     } catch (error) {
+        console.error("❌ Error fetching comments:", error);
         throw new ApiError(500, "Error fetching comments");
-    }
+    }    
 });
 
 export{

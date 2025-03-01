@@ -255,6 +255,8 @@ const getAllCommonPosts = asyncHandler(async (req, res) => {
         });
 
         const formattedPosts = Array.from(postsMap.values());
+        console.log("pppp");
+        
         console.log(formattedPosts);
         
         return res.status(200).json(new ApiResponse(200, formattedPosts, "Common posts fetched successfully"));
@@ -337,11 +339,15 @@ const getPostById = asyncHandler(async (req, res) => {
         };
 
         rows.forEach(row => {
+            console.log(row);
+            
             if (row.comment_id) {
                 postData.comments.push({
                     id: row.comment_id,
                     content: row.comment_content,
-                    created_at: row.comment_created_at
+                    created_at: row.comment_created_at,
+                    created_by: row.user_name,
+                    avatar: row.user_avatar
                 });
             }
         });

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaThumbsUp, FaThumbsDown, FaComment, FaImage } from "react-icons/fa";
 import Comment from "./Comment";
 import axios from "axios";
-
+import {useSelector} from "react-redux"
 function Post({
   post,
   user,
@@ -19,7 +19,10 @@ function Post({
   const [isLiked, setIsLiked] = useState(post.isLiked)
   const [comments, setComments] = useState(post.comments)
   const [commentInput, setCommentInput] = useState("");
-
+  const [showCommentInput, setShowCommentInput] = useState(false);
+  const [commentCount, setCommentCount] = useState(post.comments.length)
+  const [showComments, setShowComments] = useState(post.showComments);
+  const currentUser = useSelector(state=>state.auth.data)
 
   useEffect(()=>{
     axios.post("http://localhost:8002/api/v1/commonPosts/getPostById",{postId:post.post_id},{
@@ -69,10 +72,13 @@ function Post({
     }
   };
 
+  const toggleComments = () => {
+    setShowComments(!showComments);
+  };
   const submitComment = (e) =>{
     axios.post("http://localhost:8002/api/v1/commonPosts/addComment",{
       postId: post1.post_id,
-      comment: commentInput
+      content: commentInput
     },{
       headers: {
         "Accept": "application/json",
@@ -81,10 +87,10 @@ function Post({
       },
     })
     .then(response=>{
-      // setComments(response.data.data)
-      // setCommentInput("")
-      console.log(response.data.data);
-      
+      setComments(response.data.data.allComments)
+      setCommentInput("")
+      // console.log(response.data.data.allComments);
+      setCommentCount(response.data.data.allComments.length)
     })
     .catch(error=>{
       console.error(`Error submitting comment:`, error.response?.data?.message || error.message);
@@ -120,19 +126,19 @@ function Post({
         {/* Comment Button */}
         <button
           className="comment-button"
-          onClick={() => onToggleCommentInput(post.post_id)}
+          onClick={(e) => setShowCommentInput(prev=>!prev)}
         >
-          <FaComment /> {post.comments.length > 0 && post.comments.length}
+          <FaComment /> {commentCount > 0 && commentCount}
         </button>
       </div>
 
       {/* Comment Input Section */}
-      {post.showCommentInput && (
+      {showCommentInput && (
         <div className="comment-composer">
           <div className="composer-header-small">
             <img
-              src={user.avatar}
-              alt={user.name}
+              src={currentUser.profile_picture}
+              alt={currentUser.full_name}
               className="user-avatar-tiny"
             />
           </div>
@@ -145,7 +151,7 @@ function Post({
             className="comment-input"
           />
 
-          {post.newCommentImage && (
+          {/* {post.newCommentImage && (
             <div className="image-preview-small">
               <img src={post.newCommentImage} alt="Comment preview" />
               <button
@@ -155,22 +161,13 @@ function Post({
                 ×
               </button>
             </div>
-          )}
+          )} */}
 
           <div className="composer-actions-small">
-            <label className="upload-image-button-small">
-              <FaImage />
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => onCommentImageChange(post.id, e)}
-                style={{ display: "none" }}
-              />
-            </label>
             <button
               className="comment-button-small"
-              onClick={() => onAddComment(post.id)}
-              disabled={!post.newCommentText?.trim() && !post.newCommentImage}
+              onClick={submitComment}
+              disabled={!commentInput?.trim()}
             >
               Send
             </button>
@@ -179,18 +176,18 @@ function Post({
       )}
 
       {/* Comments List Section */}
-      {post.comments.length > 0 && (
+      {commentCount > 0 && (
         <div className="comments-section">
           <button
             className="toggle-comments"
-            onClick={() => onToggleComments(post.id)}
+            onClick={toggleComments}
           >
-            {post.showComments ? "Hide" : "Show"} {post.comments.length} comments
+            {showComments ? "Hide" : "Show"} {commentCount} comments
           </button>
 
-          {post.showComments && (
+          {showComments && (
             <div className="comments-list">
-              {post.comments.map((comment) => (
+              {comments.map((comment) => (
                 <Comment key={comment.id} comment={comment} />
               ))}
             </div>

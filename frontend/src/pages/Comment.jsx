@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
 
 function Comment({ comment }) {
     console.log(comment);
@@ -7,22 +8,15 @@ function Comment({ comment }) {
     <div className="comment">
       <div className="comment-header">
         <img
-          src={comment.user.avatar}
-          alt={comment.user.name}
+          src={comment.profile_picture}
+          alt={comment.user_name}
           className="user-avatar-tiny"
         />
-        <span className="username-tiny">{comment.user.name}</span>
+        <span className="username-tiny">{"Yash" || comment.user_name}</span>
       </div>
 
       <div className="comment-content">
-        {comment.text && <p>{comment.text}</p>}
-        {comment.image && (
-          <img
-            src={comment.image}
-            alt="Comment content"
-            className="comment-image"
-          />
-        )}
+        {comment.content && <p>{comment.content}</p>}
       </div>
     </div>
   );

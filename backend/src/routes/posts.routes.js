@@ -3,7 +3,7 @@ import {createCommonPost, getAllCommonPosts, getPostById} from "../controllers/c
 import {likePost} from "../controllers/like.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { upload } from "../middlewares/multer.middleware.js";
-import { addComment } from "../controllers/comment.controller.js";
+import { addComment, getCommentsForPost } from "../controllers/comment.controller.js";
 
 const router = Router();
 
@@ -13,6 +13,6 @@ router.route('/like').post(verifyJWT, likePost)
 router.route('/getPostById').post(verifyJWT, getPostById)
 
 router.route('/addComment').post(verifyJWT, addComment)
-
+router.route("/getCommentsFromPost").post(verifyJWT,getCommentsForPost)
 
 export default router;
