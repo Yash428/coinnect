@@ -3,15 +3,9 @@ import { FaThumbsUp, FaThumbsDown, FaComment, FaImage } from "react-icons/fa";
 import Comment from "./Comment";
 import axios from "axios";
 import {useSelector} from "react-redux"
+import {HiTranslate} from "react-icons/hi"
 function Post({
-  post,
-  user,
-  onToggleCommentInput,
-  onToggleComments,
-  onUpdateCommentText,
-  onCommentImageChange,
-  onAddComment,
-  onReaction
+  post
 }) {
   // console.log(post);
   const [post1, setPost1] = useState(post)
@@ -23,6 +17,29 @@ function Post({
   const [commentCount, setCommentCount] = useState(post.comments.length)
   const [showComments, setShowComments] = useState(post.showComments);
   const currentUser = useSelector(state=>state.auth.data)
+  const [translatedText, setTranslatedText] = useState(post.content);
+  const [selectedLang, setSelectedLang] = useState("en");
+
+  const languages = [
+    { code: "en", name: "English" },
+    { code: "es", name: "Spanish" },
+    { code: "fr", name: "French" },
+    { code: "de", name: "German" },
+    { code: "hi", name: "Hindi" },
+    { code: "zh", name: "Chinese" },
+    { code: "ar", name: "Arabic" },
+  ];
+
+  const translatePost = () => {
+
+    axios.get(`https://lingva.ml/api/v1/auto/${selectedLang}/${encodeURIComponent(post1.content)}`)
+      .then(response => {
+        console.log(response.data);
+        
+        setTranslatedText(response.data.translation)})
+      .catch(error => console.error("Error translating text:", error));
+
+  };
 
   useEffect(()=>{
     axios.post("http://localhost:8002/api/v1/commonPosts/getPostById",{postId:post.post_id},{
@@ -108,7 +125,8 @@ function Post({
       </div>
 
       <div className="post-content">
-        {post1.content && <p>{post1.content}</p>}
+        {translatedText && <p>{translatedText}</p>}
+        
         {post1.image && (
           <img src={post1.image} alt="Post content" className="post-image" />
         )}
@@ -130,6 +148,18 @@ function Post({
         >
           <FaComment /> {commentCount > 0 && commentCount}
         </button>
+        <select  value={selectedLang} onChange={e=>setSelectedLang(e.target.value)}>
+          {languages.map(lang => (
+            <option key={lang.code} value={lang.code}>{lang.name}</option>
+          ))}
+        </select>
+        <button
+          className="comment-button"
+          onClick={translatePost}
+        >
+          <HiTranslate /> Translate
+        </button>
+      
       </div>
 
       {/* Comment Input Section */}

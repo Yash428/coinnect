@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { FaImage } from "react-icons/fa";
+import {toast} from "react-toastify"
+import axios from "axios";
 
 function PostComposer({ user, onPostSubmit }) {
   const [newPostText, setNewPostText] = useState("");
   const [newPostImage, setNewPostImage] = useState(null);
 
-  const handlePostSubmit = () => {
+  const handlePostSubmit = (e) => {
+    e.preventDefault()
     if (newPostText.trim() || newPostImage) {
       const newPost = {
         id: Date.now(),
@@ -22,22 +25,32 @@ function PostComposer({ user, onPostSubmit }) {
         newCommentText: "",
         newCommentImage: null,
       };
-      
-      onPostSubmit(newPost);
-      setNewPostText("");
-      setNewPostImage(null);
-    }
-  };
 
-  const handlePostImageChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setNewPostImage(event.target.result);
-      };
-      reader.readAsDataURL(e.target.files[0]);
+      let data = new FormData()
+      data.append('content', newPostText)
+      data.append('image', newPostImage)
+      axios.post('http://localhost:8002/api/v1/commonPosts/addPost',data,{
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(res=>res.data)
+      .then(result =>{
+        setNewPostText("");
+        setNewPostImage(null);
+        toast.success("Posted successfully!", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      })
+      .catch(err=>{
+        console.log(err);
+        toast.warn("Error Occured!");
+      })
     }
-  };
+    }
+  
 
   return (
     <div className="post-composer">
@@ -75,7 +88,7 @@ function PostComposer({ user, onPostSubmit }) {
           <input
             type="file"
             accept="image/*"
-            onChange={handlePostImageChange}
+            onChange={(e)=>setNewPostImage(e.target.files[0])}
             style={{ display: "none" }}
           />
         </label>
@@ -89,6 +102,6 @@ function PostComposer({ user, onPostSubmit }) {
       </div>
     </div>
   );
-}
 
+}
 export default PostComposer;
