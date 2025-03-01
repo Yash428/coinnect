@@ -28,6 +28,18 @@ function Post({
     { code: "hi", name: "Hindi" },
     { code: "zh", name: "Chinese" },
     { code: "ar", name: "Arabic" },
+    { code: "ja", name: "Japanese" },
+    { code: "ko", name: "Korean" },
+    { code: "pt", name: "Portuguese" },
+    { code: "ru", name: "Russian" },
+    { code: "tr", name: "Turkish" },
+    { code: "vi", name: "Vietnamese" },
+    { code: "id", name: "Indonesian" },
+    { code: "th", name: "Thai" },
+    { code: "my", name: "Malay" },
+    { code: "bn", name: "Bengali" },
+    { code: "it", name: "Italian" },
+    { code: "pl", name: "Polish" }
   ];
 
   const translatePost = () => {
