@@ -27,7 +27,7 @@ const Community = sequelize.define("Community", {
         onDelete: "CASCADE"
     }
 }, {
-    timestamps: true,
+    timestamps: false,
     tableName: 'communities'
 });
 

@@ -3,7 +3,7 @@ import { FaImage } from "react-icons/fa";
 import {toast} from "react-toastify"
 import axios from "axios";
 
-function PostComposer({ user, onPostSubmit }) {
+function PostComposer({ user, onPostSubmit, community_id, addNewPost }) {
   const [newPostText, setNewPostText] = useState("");
   const [newPostImage, setNewPostImage] = useState(null);
 
@@ -29,25 +29,51 @@ function PostComposer({ user, onPostSubmit }) {
       let data = new FormData()
       data.append('content', newPostText)
       data.append('image', newPostImage)
-      axios.post('http://localhost:8002/api/v1/commonPosts/addPost',data,{
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then(res=>res.data)
-      .then(result =>{
-        setNewPostText("");
-        setNewPostImage(null);
-        toast.success("Posted successfully!", {
-          position: "top-right",
-          autoClose: 3000,
-        });
-      })
-      .catch(err=>{
-        console.log(err);
-        toast.warn("Error Occured!");
-      })
+      if(community_id===undefined){
+        axios.post('http://localhost:8002/api/v1/commonPosts/addPost',data,{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then(res=>res.data)
+        .then(result =>{
+          setNewPostText("");
+          setNewPostImage(null);
+          toast.success("Posted successfully!", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+        })
+        .catch(err=>{
+          console.log(err);
+          toast.warn("Error Occured!");
+        })
+      }
+      else{
+        data.append('community_id',community_id)
+        axios.post('http://localhost:8002/api/v1/commonPosts/addCommunityPost',data,{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then(res=>res.data)
+        .then(result =>{
+          setNewPostText("");
+          setNewPostImage(null);
+          addNewPost(result.data.data);
+          toast.success("Posted successfully!", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+        })
+        .catch(err=>{
+          console.log(err);
+          toast.warn("Error Occured!");
+        })
+      }
+      
     }
     }
   

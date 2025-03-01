@@ -12,7 +12,7 @@ function Comment({ comment }) {
           alt={comment.user_name}
           className="user-avatar-tiny"
         />
-        <span className="username-tiny">{"Yash" || comment.user_name}</span>
+        <span className="username-tiny">{comment.user_name}</span>
       </div>
 
       <div className="comment-content">

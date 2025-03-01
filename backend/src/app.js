@@ -16,10 +16,11 @@ app.use(cookieParser())
 
 import userRouter from "./routes/user.routes.js"
 import commonPostRouter from "./routes/posts.routes.js"
-
+import communityRouter from "./routes/community.routes.js"
 
 app.use("/api/v1",userRouter)
 app.use("/api/v1/commonPosts",commonPostRouter)
+app.use("/api/v1/community",communityRouter)
 
 
 export {app}

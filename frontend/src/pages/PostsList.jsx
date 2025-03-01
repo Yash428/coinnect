@@ -3,78 +3,59 @@ import Post from "./Post";
 import axios from "axios"; // Import axios for API calls
 import {useNavigate} from "react-router-dom"
 
-function PostsList() {
+function PostsList({
+  community_id
+}) {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate()
+  const [community_id1, setCommunity_id1] = useState(community_id)
   useEffect(()=>{
     const fetchPosts = async ()=>{
-      axios.post("http://localhost:8002/api/v1/commonPosts/getCommon",{},{
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          "Content-Type": "application/json",
-        },
-      })
-      .then(res=>res.data)
-      .then(result=>{
-        console.log(result.data);
-        setPosts(result.data);
-        // moderatePosts(result.data)
-      })
-      .catch((error) => {
-        console.log(error.status)
-        if(error.status === 401){
-          localStorage.removeItem('accessToken');
-          navigate('/login');
-        }
-        console.log("Error fetching common posts")});
+      if(community_id1 === undefined){
+        axios.post("http://localhost:8002/api/v1/commonPosts/getCommon",{},{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            "Content-Type": "application/json",
+          },
+        })
+        .then(res=>res.data)
+        .then(result=>{
+          console.log(result.data);
+          setPosts(result.data);
+        })
+        .catch((error) => {
+          console.log(error.status)
+          if(error.status === 401){
+            localStorage.removeItem('accessToken');
+            navigate('/login');
+          }
+          console.log("Error fetching common posts")});
+      }
+      else{
+        axios.post("http://localhost:8002/api/v1/commonPosts/getCommunityPostsById",{
+          community_id
+        },{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            "Content-Type": "application/json",
+          },
+        })
+        .then(res=>res.data)
+        .then(result=>{
+          console.log(result.data);
+          setPosts(result.data);
+        })
+        .catch((error) => {
+          console.log(error.status)
+          if(error.status === 401){
+            localStorage.removeItem('accessToken');
+            navigate('/login');
+          }
+          console.log("Error fetching common posts")});
+      } 
     }
-    
-
-
-      // axios.post("http://localhost:8002/api/v1/commonPosts/moderateContent",{posts},{
-      //   headers: {
-      //     Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      //     "Content-Type": "application/json",
-      //   },
-      // })
-      // .then(res=>res.data)
-      // .then(result=>{
-      //   console.log(result.data);
-      //   setPosts(result.data);
-      // })
-      // .catch((error) => {
-      //   console.log(error.status)
-      //   if(error.status === 401){
-      //     localStorage.removeItem('accessToken');
-      //     navigate('/login');
-      //   }
-      //   console.log("Error fetching common posts")});
-      // const moderatePosts = async (fetchedPosts) => {
-      //   try {
-      //     const response = await axios.post(
-      //       "http://localhost:8002/api/v1/commonPosts/moderateContent",
-      //       { posts: fetchedPosts },
-      //       {
-      //         headers: {
-      //           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      //           "Content-Type": "application/json",
-      //         },
-      //       }
-      //     );
-  
-      //     if (response.data && response.data.data) {
-      //       setPosts(response.data.data);
-      //     }
-      //   } catch (error) {
-      //     console.error("Error moderating posts:", error);
-      //     if (error.response?.status === 401) {
-      //       localStorage.removeItem("accessToken");
-      //       navigate("/login");
-      //     }
-      //   }
-      // };
       fetchPosts()
-    },[navigate])
+    },[])
 
   return (
     <div className="posts-container">

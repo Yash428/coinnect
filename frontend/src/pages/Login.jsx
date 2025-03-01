@@ -40,18 +40,7 @@ const Login = () => {
     })
   };
 
-  const Google = (e) =>{
-    return (
-        <>
-            <GoogleLogin  onSuccess={credentialResponse => {
-                console.log(credentialResponse);
-            }}
-            onError={() => {
-                console.log('Login Failed');
-            }}
-            />
-        </>
-)}
+
 
   return (
     <div className="flex h-screen">
@@ -77,19 +66,13 @@ const Login = () => {
                 <FaEye onClick={() => setShowPassword(!showPassword)} className="absolute right-4 bottom-4 text-xl cursor-pointer text-gray-600" />
               )}
             </div>
-            <div className="flex justify-between items-center mt-4 text-sm">
-              <div className="flex items-center gap-2">
-                <input type="checkbox" id="remember-checkbox" className="cursor-pointer" />
-                <label htmlFor="remember-checkbox" className="cursor-pointer text-gray-700">Remember for 30 days</label>
-              </div>
-              <a href="#" className="text-green-600 hover:underline">Forgot password?</a>
-            </div>
+            
             <div className="flex flex-col gap-4 mt-6">
               <button type="submit" onClick={handleLoginSubmit} className="w-full p-4 bg-green-600 text-white font-bold rounded-full hover:bg-green-700 transition">Log In</button>
               {/* <button type="button" className="w-full p-4 bg-yellow-500 flex items-center justify-center gap-4 font-bold rounded-full hover:bg-yellow-600 transition">
                 <img src={GoogleSvg} alt="Google" className="w-6" /> Log In with Google
               </button> */}
-              <Google />
+              
             </div>
           </form>
           <p className="text-center text-gray-700 mt-6">

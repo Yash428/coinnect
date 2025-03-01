@@ -5,7 +5,7 @@ import { User } from "../models/user.model.js"
 import { Community } from "../models/community.model.js"
 import { uploadOnCloudinary, deleteFromCloudinary } from "../utils/cloudinary.js"
 import { connectDb } from "../db/index.js"
-
+import { UserCommunity } from "../models/userCommunity.model.js"
 
 const createCommunity = asyncHandler(async(req,res)=>{
     const sequelize = await connectDb()
@@ -17,7 +17,7 @@ const createCommunity = asyncHandler(async(req,res)=>{
         const community = await Community.create({ 
             name, 
             description, 
-            created_by: userId 
+            created_by: userId
         },{
             transaction
         });
@@ -29,6 +29,8 @@ const createCommunity = asyncHandler(async(req,res)=>{
 
     } catch (error) {
         await transaction.rollback();
+        console.log(error);
+        
         throw new ApiError(400,error || "Error creating Community");
     }
 })
@@ -55,8 +57,55 @@ const getCommunityById = asyncHandler(async (req, res) => {
     }
 });
 
+
+const joinCommunity = asyncHandler(async (req, res) => {
+    const sequelize = await connectDb();
+    const transaction = await sequelize.transaction();
+
+    try {
+        const { communityId } = req.body;
+        const userId = req.user.id;
+        
+        // Check if community exists
+        const community = await Community.findByPk(communityId);
+        if (!community) {
+            throw new ApiError(404, "Community not found");
+        }
+
+        // Check if user is already a member
+        const isMember = await UserCommunity.findOne({
+            where: { user_id: userId, community_id: communityId },
+            transaction
+        });
+
+        if (isMember) {
+            throw new ApiError(400, "User is already a member of this community");
+        }
+
+        // Add user to community
+        const userCommunity = await UserCommunity.create({
+            user_id: userId,
+            community_id: communityId,
+            role: 'member', // Default role
+            joined_at: new Date()
+        }, { transaction });
+
+        await transaction.commit();
+
+        return res.status(201).json(new ApiResponse(201, userCommunity, "Joined community successfully"));
+
+    } catch (error) {
+        await transaction.rollback();
+        throw new ApiError(500, error.message || "Error joining community");
+    }
+});
+
+
+
+
 export{
     createCommunity,
     getAllCommunities,
     getCommunityById,
+    joinCommunity,
 }

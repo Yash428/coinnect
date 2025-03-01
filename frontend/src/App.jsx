@@ -2,7 +2,6 @@ import React, { Suspense, lazy } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-
 const LoadingPopup = () => (
   <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
     <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
@@ -12,21 +11,24 @@ const LoadingPopup = () => (
   </div>
 );
 
-const ProtectedRoute = lazy(() => import("./components/ProtectedRoute"));
-const Coinguru = lazy(() => import("./pages/Coinguru"));
-const Coiny = lazy(() => import("./pages/Coiny"));
-const Contact = lazy(() => import("./pages/Contact"));
-const Dashboard = lazy(() => import("./pages/Dashboard"));
-const Doubt = lazy(() => import("./pages/Doubt"));
-const Get = lazy(() => import("./pages/Get"));
 const HomeLayout = lazy(() => import("./pages/HomeLayout"));
 const Landing = lazy(() => import("./pages/Landing"));
 const Login = lazy(() => import("./pages/Login"));
-const Logout = lazy(() => import("./pages/Logout"));
 const Register = lazy(() => import("./pages/Register"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Logout = lazy(() => import("./pages/Logout"));
 const Welcome = lazy(() => import("./pages/Welcome"));
-const FAQ = lazy(() => import("./pages/Faq"));
-const Pricing = lazy(() => import("./pages/Price"));
+const Get = lazy(() => import("./pages/Get"));
+const Doubt = lazy(() => import("./pages/Doubt"));
+const Coiny = lazy(() => import("./pages/Coiny"));
+const Coinguru = lazy(() => import("./pages/Coinguru"));
+
+const Price = lazy(() => import("./pages/Price"));
+const CreateCommunity = lazy(() => import("./pages/CreateCommunity"));
+const History = lazy(() => import("./pages/History"));
+const Join = lazy(() => import("./pages/Join"));
+const CommunityPost = lazy(() => import("./pages/CommunityPost"));
+const ProtectedRoute = lazy(() => import("./components/ProtectedRoute"));
 
 const router = createBrowserRouter([
   {
@@ -46,12 +48,15 @@ const router = createBrowserRouter([
           { path: "doubt", element: <Suspense fallback={<LoadingPopup />}><Doubt /></Suspense> },
           { path: "coiny", element: <Suspense fallback={<LoadingPopup />}><Coiny /></Suspense> },
           { path: "coinguru", element: <Suspense fallback={<LoadingPopup />}><Coinguru /></Suspense> },
-          {path: "faq", element: <Suspense fallback={<LoadingPopup />}><FAQ /></Suspense> },
-          {path: "pricing", element: <Suspense fallback={<LoadingPopup />}><Pricing /></Suspense> },
+          { path: "price", element: <Suspense fallback={<LoadingPopup />}><Price /></Suspense> },
+          { path: "create", element: <Suspense fallback={<LoadingPopup />}><CreateCommunity /></Suspense> },
+          { path: "history", element: <Suspense fallback={<LoadingPopup />}><History /></Suspense> },
+          { path: "join", element: <Suspense fallback={<LoadingPopup />}><Join /></Suspense> },
+          { path: "community/:communityId", element: <Suspense fallback={<LoadingPopup />}><CommunityPost /></Suspense> },
         ]
       }
-    ]
-  }
+    ],
+  },
 ]);
 
 function App() {

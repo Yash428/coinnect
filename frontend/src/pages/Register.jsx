@@ -87,9 +87,7 @@ const SignUp = () => {
             </div>
             <div className="flex flex-col gap-4 mt-6">
               <button onClick={handleRegisterSubmit} type="submit" className="w-full p-4 bg-green-600 text-white font-bold rounded-full hover:bg-green-700 transition">Sign Up</button>
-              <button type="button" className="w-full p-4 bg-yellow-500 flex items-center justify-center gap-4 font-bold rounded-full hover:bg-yellow-600 transition">
-                <img src={GoogleSvg} alt="Google" className="w-6" /> Sign Up with Google
-              </button>
+              
             </div>
           </form>
           <p className="text-center text-gray-700 mt-6">

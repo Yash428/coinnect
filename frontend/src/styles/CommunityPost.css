@@ -1,0 +1,421 @@
+:root {
+    --cp-primary: #28A745;
+    --cp-secondary: #FFD700;
+    --cp-background: #F5F5F5;
+    --cp-text: #333333;
+    --cp-light-gray: #E0E0E0;
+    --cp-medium-gray: #999999;
+    --cp-dark-gray: #666666;
+    --cp-white: #FFFFFF;
+    --cp-danger: #DC3545;
+    --cp-shadow: rgba(0, 0, 0, 0.1);
+  }
+  
+
+  .cp-post-page {
+    color: var(--cp-text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+
+  .cp-header {
+    background-color: var(--cp-white);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transform: scale(1.01);
+    box-shadow: 0px 0px 15px rgba(118, 100, 0, 0.5);
+  }
+  
+  .cp-header-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .cp-header-content h1 {
+    color: var(--cp-primary);
+    margin: 0;
+    font-size: 2rem;
+  }
+  
+  .cp-community-description {
+    font-size: 1rem;
+    color: var(--cp-dark-gray);
+    margin: 10px 0;
+  }
+  
+  .cp-community-meta {
+    display: flex;
+    gap: 20px;
+    font-size: 0.9rem;
+    color: var(--cp-medium-gray);
+  }
+  
+  .cp-header-navigation {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+  }
+  
+  .cp-nav-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: var(--cp-primary);
+    color: var(--cp-white);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+  }
+  
+  .cp-nav-btn:hover {
+    background-color: #218838;
+  }
+  
+  /* Content Area */
+  .cp-community-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  /* Create Post Section */
+  .cp-create-post-section {
+    background-color: var(--cp-white);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px var(--cp-shadow);
+  }
+  
+  .cp-create-post-section h2 {
+    color: var(--cp-primary);
+    margin-top: 0;
+    font-size: 1.5rem;
+  }
+  
+  .cp-post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .cp-post-form textarea {
+    padding: 12px;
+    border: 1px solid var(--cp-light-gray);
+    border-radius: 5px;
+    font-family: inherit;
+    resize: vertical;
+    font-size: 1rem;
+  }
+  
+  .cp-post-form textarea:focus {
+    outline: none;
+    border-color: var(--cp-primary);
+  }
+  
+  .cp-post-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .cp-file-input-container {
+    position: relative;
+  }
+  
+  .cp-file-input-label {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: var(--cp-light-gray);
+    color: var(--cp-text);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .cp-file-input-label:hover {
+    background-color: #D0D0D0;
+  }
+  
+  .cp-file-input {
+    position: absolute;
+    left: -9999px;
+  }
+  
+  .cp-post-btn {
+    padding: 8px 24px;
+    background-color: var(--cp-secondary);
+    color: var(--cp-text);
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .cp-post-btn:hover {
+    background-color: #E6C200;
+  }
+  
+  .cp-image-preview-container {
+    position: relative;
+    width: fit-content;
+    max-width: 100%;
+    margin-top: 10px;
+  }
+  
+  .cp-image-preview {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 5px;
+    border: 1px solid var(--cp-light-gray);
+  }
+  
+  .cp-remove-image-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+  }
+  
+  /* Posts Container */
+  .cp-posts-container {
+    background-color: var(--cp-white);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px var(--cp-shadow);
+  }
+  
+  .cp-posts-container h2 {
+    color: var(--cp-primary);
+    margin-top: 0;
+    font-size: 1.5rem;
+  }
+  
+  .cp-posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .cp-post-card {
+    border: 1px solid var(--cp-light-gray);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+  
+  .cp-post-card:hover {
+    transform: translateY(-3px);
+  }
+  
+  .cp-post-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: #F9F9F9;
+    border-bottom: 1px solid var(--cp-light-gray);
+  }
+  
+  .cp-post-author {
+    font-weight: 600;
+    color: var(--cp-primary);
+  }
+  
+  .cp-post-date {
+    font-size: 0.85rem;
+    color: var(--cp-medium-gray);
+  }
+  
+  .cp-post-content {
+    padding: 15px;
+  }
+  
+  .cp-post-content p {
+    margin-top: 0;
+    line-height: 1.5;
+  }
+  
+  .cp-post-image-container {
+    margin-top: 10px;
+  }
+  
+  .cp-post-image {
+    max-width: 100%;
+    border-radius: 5px;
+  }
+  
+  .cp-post-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background-color: #F9F9F9;
+    border-top: 1px solid var(--cp-light-gray);
+  }
+  
+  .cp-like-btn {
+    background: none;
+    border: none;
+    color: var(--cp-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .cp-like-btn:hover {
+    background-color: #E6E6E6;
+  }
+  
+  .cp-delete-btn {
+    background: none;
+    border: none;
+    color: var(--cp-danger);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .cp-delete-btn:hover {
+    background-color: #FFEEEE;
+  }
+  
+  .cp-no-posts {
+    text-align: center;
+    padding: 30px 0;
+    color: var(--cp-medium-gray);
+  }
+  
+  /* Loading State */
+  .cp-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 1.2rem;
+    color: var(--cp-medium-gray);
+  }
+  
+  /* Confirmation Dialog */
+  .cp-confirmation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .cp-confirmation-dialog {
+    background-color: var(--cp-white);
+    border-radius: 10px;
+    padding: 25px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .cp-confirmation-dialog h3 {
+    margin-top: 0;
+    color: var(--cp-text);
+  }
+  
+  .cp-confirmation-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .cp-cancel-btn {
+    padding: 8px 16px;
+    background-color: var(--cp-light-gray);
+    color: var(--cp-text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .cp-cancel-btn:hover {
+    background-color: #D0D0D0;
+  }
+  
+  .cp-confirm-btn {
+    padding: 8px 16px;
+    background-color: var(--cp-danger);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .cp-confirm-btn:hover {
+    background-color: #C82333;
+  }
+  
+  .cp-file-input-label{
+    margin-right:10px ;
+    background-color: white;
+    border: 3px solid #28A745;
+    border-radius: 50px;
+    color: black;
+  }
+
+  .cp-file-input-label:hover{
+    border: 3px solid #FFD700;
+    background-color: white;
+    color: #28A745;
+  }
+
+  .N{
+    margin-bottom: 10px;
+  }
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .cp-header-navigation {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .cp-nav-btn {
+      width: 100%;
+      text-align: center;
+    }
+    
+    .cp-post-actions {
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    
+    .cp-post-btn {
+      width: 100%;
+    }
+  }
