@@ -36,7 +36,8 @@ const Comment = sequelize.define("Comment", {
         defaultValue: DataTypes.NOW
     }
 }, {
-    tableName: 'comments'
+    tableName: 'comments',
+    timestamps: false
 });
 
 export {

@@ -290,11 +290,26 @@ const resetPassword = asyncHandler(async(req,res)=>{
     }
 })
 
+const getLoggedInUser = asyncHandler(async(req,res)=>{
+    const userId = req.user?.id;
+    const sequelize = await connectDb()
+    try {
+        const user = await User.findByPk(userId);
+        if (!user) {
+            throw new ApiError(404, "User not found");
+        }
+        return res.status(200).json(new ApiResponse(200, user, "User fetched successfully"));
+    } catch (error) {
+        throw new ApiError(500, error.message || "Internal Server Error");
+    }
+})
+
 export{
     registerUser,
     loginUser,
     logoutUser,
     updateUserAvatar,
-    resetPassword
+    resetPassword,
+    getLoggedInUser,
     // forgetPassword
 }

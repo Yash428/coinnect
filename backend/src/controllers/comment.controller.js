@@ -21,19 +21,44 @@ const addComment = asyncHandler(async (req, res) => {
             throw new ApiError(404, "Post not found");
         }
 
+        // Add new comment
         const comment = await Comment.create(
             { content, user_id: userId, post_id: postId },
             { transaction }
         );
 
+        // Fetch all comments for the post after adding new one
+        const comments = await sequelize.query(
+            `
+            SELECT 
+                comments.id AS comment_id,
+                comments.content AS comment_content,
+                comments.created_at AS comment_created_at,
+                users.id AS user_id,
+                users.full_name AS user_name,
+                users.profile_picture AS user_avatar
+            FROM comments
+            LEFT JOIN users ON comments.user_id = users.id
+            WHERE comments.post_id = :postId
+            ORDER BY comments.created_at ASC;
+            `,
+            {
+                type: sequelize.QueryTypes.SELECT,
+                replacements: { postId },
+                transaction
+            }
+        );
+
         await transaction.commit();
-        return res.status(201).json(new ApiResponse(201, comment, "Comment added successfully"));
+
+        return res.status(201).json(new ApiResponse(201, { newComment: comment, allComments: comments }, "Comment added successfully"));
 
     } catch (error) {
         await transaction.rollback();
         throw new ApiError(400, error.message || "Error adding comment");
     }
 });
+
 
 const getCommentsForPost = asyncHandler(async (req, res) => {
     try {

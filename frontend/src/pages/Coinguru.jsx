@@ -13,7 +13,7 @@ const Coinguru = () => {
                 </div>
                 <div className="w-full h-full overflow-hidden">
                     <iframe 
-                        src="https://udify.app/chatbot/sPR7J6bitdsL6q7l"
+                        src="https://udify.app/chatbot/bNj2bqUctYH7o2Y5"
                         allow="microphone"
                         className="w-full h-full min-h-[700px] border-none block">
                     </iframe>
