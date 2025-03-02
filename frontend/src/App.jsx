@@ -22,10 +22,10 @@ const Get = lazy(() => import("./pages/Get"));
 const Doubt = lazy(() => import("./pages/Doubt"));
 const Coiny = lazy(() => import("./pages/Coiny"));
 const Coinguru = lazy(() => import("./pages/Coinguru"));
-
+const About = lazy(() => import("./pages/About"));
 const Price = lazy(() => import("./pages/Price"));
 const CreateCommunity = lazy(() => import("./pages/CreateCommunity"));
-const History = lazy(() => import("./pages/History"));
+
 const Join = lazy(() => import("./pages/Join"));
 const CommunityPost = lazy(() => import("./pages/CommunityPost"));
 const ProtectedRoute = lazy(() => import("./components/ProtectedRoute"));
@@ -38,17 +38,18 @@ const router = createBrowserRouter([
       { index: true, element: <Suspense fallback={<LoadingPopup />}><Landing /></Suspense> },
       { path: "login", element: <Suspense fallback={<LoadingPopup />}><Login /></Suspense> },
       { path: "register", element: <Suspense fallback={<LoadingPopup />}><Register /></Suspense> },
+      { path: "about", element: <Suspense fallback={<LoadingPopup />}><About /></Suspense> },
+      { path: "price", element: <Suspense fallback={<LoadingPopup />}><Price /></Suspense> },
+      { path: "get", element: <Suspense fallback={<LoadingPopup />}><Get /></Suspense> },
       {
         element: <Suspense fallback={<LoadingPopup />}><ProtectedRoute /></Suspense>,
         children: [
           { path: "dashboard", element: <Suspense fallback={<LoadingPopup />}><Dashboard /></Suspense> },
           { path: "logout", element: <Suspense fallback={<LoadingPopup />}><Logout /></Suspense> },
           { path: "welcome", element: <Suspense fallback={<LoadingPopup />}><Welcome /></Suspense> },
-          { path: "get", element: <Suspense fallback={<LoadingPopup />}><Get /></Suspense> },
           { path: "doubt", element: <Suspense fallback={<LoadingPopup />}><Doubt /></Suspense> },
           { path: "coiny", element: <Suspense fallback={<LoadingPopup />}><Coiny /></Suspense> },
           { path: "coinguru", element: <Suspense fallback={<LoadingPopup />}><Coinguru /></Suspense> },
-          { path: "price", element: <Suspense fallback={<LoadingPopup />}><Price /></Suspense> },
           { path: "create", element: <Suspense fallback={<LoadingPopup />}><CreateCommunity /></Suspense> },
           { path: "history", element: <Suspense fallback={<LoadingPopup />}><History /></Suspense> },
           { path: "join", element: <Suspense fallback={<LoadingPopup />}><Join /></Suspense> },

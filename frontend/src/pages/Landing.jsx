@@ -1,60 +1,61 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "../assets/image.png";
 import { Link } from "react-router-dom";
-import { Sun, Moon } from "lucide-react";
+import "../styles/Landing.css";
 
-const Landing = () => {
-  const [darkMode, setDarkMode] = useState(false)
+const Home = () => {
   return (
     <>
-      <nav className="flex justify-between items-center p-4 max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold text-primary">Coinnect</h1>
-        <div className="flex items-center space-x-4">
-            <Link to={'/'} variant="ghost">Home</Link>
-            {/* <Link to={'about'} variant="ghost">About</Link> */}
-            <Link to={'/pricing'} variant="ghost">Pricing</Link>
-            <Link to={'/faq'} variant="ghost">FAQs</Link>
-            <Link to={'/get'} variant="ghost">Get In Touch</Link>
-            <button
-                className="rounded-full p-2"
-                onClick={() => setDarkMode(!darkMode)}
-            >
-            {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
+      {/* Navbar */}
+      <nav className="home-navbar">
+        <div className="home-navbar-container">
+          <ul className="home-navbar-menu">
+            <li>
+              <Link to="/about" className="home-navbar-link">
+                ABOUT US
+              </Link>
+            </li>
+            <li>
+              <Link to="/price" className="home-navbar-link">
+                PRICE
+              </Link>
+            </li>
+            <li>
+              <Link to="/get" className="home-navbar-link">
+                GET IN TOUCH
+              </Link>
+            </li>
+          </ul>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <div className="flex flex-col md:flex-row items-center justify-between w-full mt-8 px-10 py-16 rounded-lg">
-        <div className="flex-1 pr-10">
-          <h1 className="text-6xl font-bold text-center md:text-left">
-            <span className="text-yellow-500 font-bold">Coin</span>
-            <span className="text-green-600 font-bold">nect</span>
+      <div className="home-hero-section">
+        <div className="home-hero-content">
+          <h1>
+            <label className="home-coin">Coin</label>
+            <label className="home-nect">nect</label>
           </h1>
-          <h3 className="text-4xl mt-2 text-center md:text-left">
-            <span className="text-yellow-500">Link it, </span>
-            <span className="text-green-600">Coin it, </span>
-            <span className="text-yellow-500">Own it.</span>
+          <h3>
+            <label className="home-link">Link it, </label>
+            <label className="home-it">Coin it, </label>
+            <label className="home-own">Own it.</label>
           </h3>
 
-          {/* Sign Up and Login buttons */}
-          <div className="flex gap-6 mt-6 justify-center md:justify-start">
-            <Link to="/register" className="px-6 py-3 text-xl font-bold border-2 border-yellow-500 rounded-full bg-white text-green-600 transition hover:bg-green-600 hover:text-white">
-              SIGN UP
-            </Link>
-            <Link to="/login" className="px-6 py-3 text-xl font-bold border-2 border-yellow-500 rounded-full bg-white text-green-600 transition hover:bg-green-600 hover:text-white">
-              LOGIN
-            </Link>
+          {/* Sign Up and Login Buttons */}
+          <div className="home-button-container">
+            <Link to="/register" className="home-auth-button home-signup">SIGN UP</Link>
+            <Link to="/login" className="home-auth-button home-login">LOGIN</Link>
           </div>
         </div>
         
         {/* Right Side Image */}
-        <div className="flex-1 flex justify-center mt-10 md:mt-0">
-          <img src={Image} alt="Landing Illustration" className="w-full max-w-md rounded-lg" />
+        <div className="home-hero-image">
+          <img src={Image} alt="Landing Illustration" />
         </div>
       </div>
     </>
   );
 };
 
-export default Landing;
+export default Home;

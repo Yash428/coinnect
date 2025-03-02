@@ -8,6 +8,10 @@ import { uploadOnCloudinary, deleteFromCloudinary } from "../utils/cloudinary.js
 import { connectDb } from "../db/index.js"
 import {QueryTypes } from "sequelize"
 
+const moderatePost = async()=>{
+
+}
+
 const createCommonPost = asyncHandler(async (req, res) => {
     const sequelize = await connectDb();
     const transaction = await sequelize.transaction();

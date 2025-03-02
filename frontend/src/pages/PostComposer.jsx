@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaImage } from "react-icons/fa";
-import {toast} from "react-toastify"
+import { toast } from "react-toastify";
 import axios from "axios";
 
 function PostComposer({ user, onPostSubmit, community_id, addNewPost }) {
@@ -8,7 +8,7 @@ function PostComposer({ user, onPostSubmit, community_id, addNewPost }) {
   const [newPostImage, setNewPostImage] = useState(null);
 
   const handlePostSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (newPostText.trim() || newPostImage) {
       const newPost = {
         id: Date.now(),
@@ -26,57 +26,60 @@ function PostComposer({ user, onPostSubmit, community_id, addNewPost }) {
         newCommentImage: null,
       };
 
-      let data = new FormData()
-      data.append('content', newPostText)
-      data.append('image', newPostImage)
-      if(community_id===undefined){
-        axios.post('http://localhost:8002/api/v1/commonPosts/addPost',data,{
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then(res=>res.data)
-        .then(result =>{
-          setNewPostText("");
-          setNewPostImage(null);
-          toast.success("Posted successfully!", {
-            position: "top-right",
-            autoClose: 3000,
+      let data = new FormData();
+      data.append("content", newPostText);
+      data.append("image", newPostImage);
+      if (community_id === undefined) {
+        axios
+          .post("http://localhost:8002/api/v1/commonPosts/addPost", data, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((res) => res.data)
+          .then((result) => {
+            setNewPostText("");
+            setNewPostImage(null);
+            toast.success("Posted successfully!", {
+              position: "top-right",
+              autoClose: 3000,
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.warn("Error Occured!");
           });
-        })
-        .catch(err=>{
-          console.log(err);
-          toast.warn("Error Occured!");
-        })
-      }
-      else{
-        data.append('community_id',community_id)
-        axios.post('http://localhost:8002/api/v1/commonPosts/addCommunityPost',data,{
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then(res=>res.data)
-        .then(result =>{
-          setNewPostText("");
-          setNewPostImage(null);
-          addNewPost(result.data.data);
-          toast.success("Posted successfully!", {
-            position: "top-right",
-            autoClose: 3000,
+      } else {
+        data.append("community_id", community_id);
+        axios
+          .post(
+            "http://localhost:8002/api/v1/commonPosts/addCommunityPost",
+            data,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          )
+          .then((res) => res.data)
+          .then((result) => {
+            setNewPostText("");
+            setNewPostImage(null);
+            addNewPost(result.data.data);
+            toast.success("Posted successfully!", {
+              position: "top-right",
+              autoClose: 3000,
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.warn("Error Occured!");
           });
-        })
-        .catch(err=>{
-          console.log(err);
-          toast.warn("Error Occured!");
-        })
       }
-      
     }
-    }
-  
+  };
 
   return (
     <div className="post-composer">
@@ -114,7 +117,7 @@ function PostComposer({ user, onPostSubmit, community_id, addNewPost }) {
           <input
             type="file"
             accept="image/*"
-            onChange={(e)=>setNewPostImage(e.target.files[0])}
+            onChange={(e) => setNewPostImage(e.target.files[0])}
             style={{ display: "none" }}
           />
         </label>
@@ -128,6 +131,5 @@ function PostComposer({ user, onPostSubmit, community_id, addNewPost }) {
       </div>
     </div>
   );
-
 }
 export default PostComposer;

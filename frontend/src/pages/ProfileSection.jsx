@@ -1,23 +1,36 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import AvatarPopup from "./AvatarPopup";
 
 function ProfileSection({ user, onUpdateAvatar }) {
-  const [showAvatars, setShowAvatars] = useState(false);
+
   const [avatar, setAvatar] = useState();
   const [user1, setUser1] = useState(user)
-  // const handleAvatarUpload = (event) => {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       onUpdateAvatar(reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-  // console.log(user);
+
   
+  const updateUserAvatar = (e) => {
+    let data = new FormData()
+    data.append('avatar', avatar);
+    axios.post("http://localhost:8002/api/v1/updateProfile",data,{
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then(res=>res.data)
+    .then(result =>{
+      console.log(result.data);
+      
+      setUser1({...user, avatar: result.data.profile_picture});
+    })
+    .catch(() => {
+      console.log(error);
+      
+      console.log("Error updating avatar")});
+
+  };
+
   useEffect(()=>{
     axios.get("http://localhost:8002/api/v1/getCurrentUser",{},{
       headers: {
@@ -36,12 +49,12 @@ function ProfileSection({ user, onUpdateAvatar }) {
   return (
     <div className="profile-section">
       <div className="avatar-container">
-        <img src={user.profile_picture} alt="User Avatar" className="user-avatar" />
+        <img src={user1.profile_picture} alt="User Avatar" className="user-avatar" />
       </div>
-      <p className="username">{user.name}</p>
+      <p className="username">{user1.name}</p>
 
       <label className="sidebar-button">
-        <p className="Ch">Change Avatar</p>
+        <p className="Ch">Select Avatar</p>
         <input
           type="file"
           accept="image/*"
@@ -50,17 +63,13 @@ function ProfileSection({ user, onUpdateAvatar }) {
         />
       </label>
 
-      {showAvatars && (
-        <div className="avatar-options">
-          {/* If you have avatar options, map them here */}
-        </div>
-      )}
+
 
       <Link to={'/join'} className="sidebar-button">Join Community</Link>
       <Link to={'/create'} className="sidebar-button">Create Community</Link>
 
       <div className="coins-display">
-        <span>Coins: {user.coins}</span>
+        <span>Coins: {user1.coins}</span>
         <div className="coin-stack">
           <div className="coin"></div>
           <div className="coin"></div>

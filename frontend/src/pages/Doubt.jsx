@@ -8,15 +8,18 @@ import PostComposer from "./PostComposer";
 import PostsList from "./PostsList";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Logout from "./Logout";
+import { isFinanceRelated } from "./FinanceModerate";
 
 function Doubt() {
   const user0 = useSelector(state=>state.auth.data)
   console.log(user0);
   const navigate = useNavigate()
   const [user, setUser] = useState(user0);
-
+  const [searchQuery, setSearchQuery] = useState(""); // New state for search query
+  const [filteredPosts, setFilteredPosts] = useState([]); // State for filtered posts
+  const [alert, setAlert] = useState({ show: false, message: "" });
   const [posts, setPosts] = useState([]);
 
   // Handle avatar update
@@ -57,6 +60,17 @@ function Doubt() {
       console.log("Error fetching common posts")});
   },[])
 
+  useEffect(() => {
+    if (searchQuery.trim() === "") {
+      setFilteredPosts(posts);
+    } else {
+      const filtered = posts.filter(post => 
+        post.text.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredPosts(filtered);
+    }
+  }, [posts, searchQuery]);
+
   return (
     <div className="app">
       <nav className="navbar">
@@ -69,9 +83,9 @@ function Doubt() {
             <FaSearch />
           </button>
         </div>
-        <div className="logout-button">
-          <FaSignOutAlt /> <Logout />
-        </div>
+        <Link to={'/welcome'} className="logout-button">
+          <FaSignOutAlt />
+        </Link>
       </nav>
 
       <div className="content">
@@ -94,3 +108,4 @@ function Doubt() {
 }
 
 export default Doubt;
+
