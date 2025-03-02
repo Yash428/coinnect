@@ -53,7 +53,7 @@ function ProfileSection({ user, onUpdateAvatar }) {
       </div>
       <p className="username">{user1.name}</p>
 
-      <label className="sidebar-button">
+      {/* <label className="sidebar-button">
         <p className="Ch">Select Avatar</p>
         <input
           type="file"
@@ -61,7 +61,7 @@ function ProfileSection({ user, onUpdateAvatar }) {
           onChange={e=>setAvatar(e.target.files[0])}
           style={{ display: "none" }}
         />
-      </label>
+      </label> */}
 
 
 

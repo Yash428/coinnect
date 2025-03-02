@@ -99,7 +99,7 @@ function PostComposer({ user, onPostSubmit, community_id, addNewPost }) {
           alt={user.name}
           className="user-avatar-small"
         />
-        <span className="username-small">{user.name}</span>
+        <span className="username-small">{user.full_name}</span>
       </div>
 
       <textarea

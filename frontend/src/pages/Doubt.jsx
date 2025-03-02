@@ -77,12 +77,12 @@ function Doubt() {
         <div className="navbar-logo">
           <img src={Image} alt="" />
         </div>
-        <div className="search-box">
+        {/* <div className="search-box">
           <input type="text" placeholder="Search..." />
           <button className="search-button">
             <FaSearch />
           </button>
-        </div>
+        </div> */}
         <Link to={'/welcome'} className="logout-button">
           <FaSignOutAlt />
         </Link>

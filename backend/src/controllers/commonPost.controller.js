@@ -164,7 +164,6 @@ const createCommonPost = asyncHandler(async (req, res) => {
 //         return res.status(500).json({ status: 500, message: "Error fetching common posts" });
 //     }
 // };
-
 const getAllCommonPosts = asyncHandler(async (req, res) => {
     const sequelize = await connectDb();
     const userId = req.user.id; // Get the authenticated user ID
@@ -192,10 +191,7 @@ const getAllCommonPosts = asyncHandler(async (req, res) => {
                 CAST(COALESCE(likes_count_table.likes_count, 0) AS INTEGER) AS likes_count,
 
                 -- Check if the current user has liked this post
-                CASE WHEN user_likes.user_id IS NOT NULL THEN TRUE ELSE FALSE END AS liked,
-
-                -- Check if the current user has disliked this post
-                CASE WHEN user_dislikes.user_id IS NOT NULL THEN TRUE ELSE FALSE END AS disliked
+                CASE WHEN user_likes.user_id IS NOT NULL THEN TRUE ELSE FALSE END AS liked
 
             FROM posts
             LEFT JOIN users ON posts.user_id = users.id
@@ -203,11 +199,7 @@ const getAllCommonPosts = asyncHandler(async (req, res) => {
             LEFT JOIN (
                 SELECT post_id, COUNT(*) AS likes_count FROM likes GROUP BY post_id
             ) AS likes_count_table ON posts.id = likes_count_table.post_id
-            LEFT JOIN (
-                SELECT post_id, COUNT(*) AS dislikes_count FROM post_dislikes GROUP BY post_id
-            ) AS dislikes_count_table ON posts.id = dislikes_count_table.post_id
             LEFT JOIN likes AS user_likes ON posts.id = user_likes.post_id AND user_likes.user_id = :userId
-            LEFT JOIN post_dislikes AS user_dislikes ON posts.id = user_dislikes.post_id AND user_dislikes.user_id = :userId
 
             WHERE posts.community_id IS NULL
             ORDER BY posts.created_at DESC, comments.created_at ASC;
@@ -236,9 +228,7 @@ const getAllCommonPosts = asyncHandler(async (req, res) => {
                     created_at: row.post_created_at,
                     updated_at: row.post_updated_at,
                     likes: row.likes_count,
-                    dislikes: row.dislikes_count,
                     liked: row.liked,  // New Field
-                    disliked: row.disliked,  // New Field
                     user: {
                         id: row.user_id,
                         name: row.user_name,
