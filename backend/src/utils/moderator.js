@@ -1,6 +1,4 @@
-/**
- * List of finance-related keywords for content filtering
- */
+
 export const FINANCE_KEYWORDS = [
     "finance",
     "financial",
@@ -188,33 +186,28 @@ export const FINANCE_KEYWORDS = [
     "sanctions",
     "whistleblower",
     "forensic accounting",
-  ];
-  
-  /**
-   * Checks if text content is related to finance
-   * @param {string} text - The text content to check
-   * @returns {boolean} - True if finance-related, false otherwise
-   */
-  export const isFinanceRelated = (text) => {
-    if (!text || typeof text !== "string") {
-      return false;
+];
+
+export const isFinanceRelated = (text) => {
+if (!text || typeof text !== "string") {
+    return false;
+}
+    
+const lowerText = text.toLowerCase();
+
+// Check for finance keywords with word boundaries
+for (const keyword of FINANCE_KEYWORDS) {
+    // Fix: Properly escape the regex pattern and handle multi-word keywords
+    const pattern = keyword.includes(" ") 
+    ? keyword.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') // Escape special regex characters
+    : `\\b${keyword.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b`;
+    
+    const regex = new RegExp(pattern, "i");
+    if (regex.test(lowerText)) {
+    return true;
     }
-    
-    const lowerText = text.toLowerCase();
-    
-    // Check for finance keywords with word boundaries
-    for (const keyword of FINANCE_KEYWORDS) {
-      // Fix: Properly escape the regex pattern and handle multi-word keywords
-      const pattern = keyword.includes(" ") 
-        ? keyword.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') // Escape special regex characters
-        : `\\b${keyword.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b`;
-      
-      const regex = new RegExp(pattern, "i");
-      if (regex.test(lowerText)) {
-        return true;
-      }
-    }
-    
+}
+
     // Check for currency mentions (e.g., $50, 100 dollars)
     const currencyRegex = /\$\d+(\.\d+)?|\d+(\.\d+)?\s?(dollars|usd|euro|eur|gbp|jpy|cny|rupee|inr|₹|€|£|¥)/i;
     if (currencyRegex.test(lowerText)) {
@@ -236,11 +229,6 @@ export const FINANCE_KEYWORDS = [
     return false;
   };
   
-  /**
-   * Filters an array of posts to only include finance-related content
-   * @param {Array} posts - Array of post objects
-   * @returns {Array} - Filtered array of posts
-   */
   export const filterFinancePosts = (posts) => {
     return posts.filter((post) => !post.text || isFinanceRelated(post.text));
   };

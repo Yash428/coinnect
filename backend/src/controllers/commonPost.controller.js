@@ -7,19 +7,19 @@ import { Post} from "../models/post.model.js"
 import { uploadOnCloudinary, deleteFromCloudinary } from "../utils/cloudinary.js"
 import { connectDb } from "../db/index.js"
 import {QueryTypes } from "sequelize"
-
-const moderatePost = async()=>{
-
-}
+import { isFinanceRelated } from "../utils/moderator.js"
 
 const createCommonPost = asyncHandler(async (req, res) => {
     const sequelize = await connectDb();
     const transaction = await sequelize.transaction();
     let img = null
+    let error_code = 0
     try {
         const { content } = req.body;
         const userId = req.user.id;
-
+        if(!isFinanceRelated(content)){
+            throw new ApiError(403, "Only Finance-related content is allowed")
+        }
         const imgLocalPath =  req.file?.path;
         if(imgLocalPath){
             img = await uploadOnCloudinary(imgLocalPath)
@@ -41,6 +41,7 @@ const createCommonPost = asyncHandler(async (req, res) => {
         if (img && img.public_id) {
             await deleteFromCloudinary(img.public_id);
         }
+
         throw new ApiError(400, error.message || "Error creating common post");
     }
 });

@@ -48,6 +48,16 @@ function PostComposer({ user, onPostSubmit, community_id, addNewPost }) {
           })
           .catch((err) => {
             console.log(err);
+            if(err.status===400){
+              toast.error("Invalid Post Subitted, Please submit only finance related posts ",{
+                position: "top-right",
+                autoClose: 5000,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+              })
+            }
             toast.warn("Error Occured!");
           });
       } else {
